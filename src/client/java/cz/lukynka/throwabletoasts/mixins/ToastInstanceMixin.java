@@ -4,6 +4,7 @@ import cz.lukynka.throwabletoasts.client.ThrowableToastsClient;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.toasts.NowPlayingToast;
 import net.minecraft.client.gui.components.toasts.Toast;
 import net.minecraft.client.gui.components.toasts.ToastManager;
 import org.spongepowered.asm.mixin.Final;
@@ -123,6 +124,11 @@ public class ToastInstanceMixin<T extends Toast> {
                     this.hasFinishedRendering = true;
                     this.visibility = Toast.Visibility.HIDE;
                     ThrowableToastsClient.getTHROWN_AWAY_TOASTS().remove(thisClass);
+                    if (this.toast instanceof NowPlayingToast) {
+                        animationX = 0f;
+                        animationY = 0f;
+                        rotation = 0f;
+                    }
                 }
                 ci.cancel();
             }

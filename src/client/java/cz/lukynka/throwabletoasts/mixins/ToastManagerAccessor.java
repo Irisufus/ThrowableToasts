@@ -1,5 +1,6 @@
 package cz.lukynka.throwabletoasts.mixins;
 
+import net.minecraft.client.gui.components.toasts.NowPlayingToast;
 import net.minecraft.client.gui.components.toasts.ToastManager;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
@@ -11,5 +12,8 @@ public interface ToastManagerAccessor {
 
     @Accessor
     List<ToastManager.ToastInstance<?>> getVisibleToasts();
+
+    @Accessor
+    ToastManager.ToastInstance<NowPlayingToast> getNowPlayingToast();
 
 }

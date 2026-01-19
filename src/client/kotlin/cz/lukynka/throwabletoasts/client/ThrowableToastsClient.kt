@@ -90,6 +90,20 @@ class ThrowableToastsClient : ClientModInitializer {
             }
         }
 
+        toastManager.nowPlayingToast?.let { nowPlayingToast ->
+            val width = nowPlayingToast.toast.width()
+            val height = nowPlayingToast.toast.height()
+
+            val x: Int = client.window.guiScaledWidth - width
+            val y: Int = 32 + (height + 2) * (toastManager.visibleToasts.size - 1)
+
+            if (mouseX >= x && mouseX <= x + width && mouseY >= y && mouseY <= y + height) {
+                if (IS_LEFT_DOWN && HOVERED_TOAST == null) {
+                    HOVERED_TOAST = nowPlayingToast
+                }
+            }
+        }
+
         if (!IS_LEFT_DOWN) {
             if (HOVERED_TOAST != null) {
                 THROWN_AWAY_TOASTS.add(HOVERED_TOAST!!)
