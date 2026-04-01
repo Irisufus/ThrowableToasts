@@ -60,7 +60,7 @@ class ThrowableToastsClient : ClientModInitializer {
         container.ifPresent(Consumer<ModContainer> { modContainer: ModContainer -> VERSION = modContainer.metadata.version.friendlyString })
 
         frameRenderHandler = { _ -> onClientTick(Minecraft.getInstance()) }
-        PayloadTypeRegistry.playC2S().register(ModInstalledPacket.TYPE, ModInstalledPacket.STREAM_CODEC)
+        PayloadTypeRegistry.serverboundPlay().register(ModInstalledPacket.TYPE, ModInstalledPacket.STREAM_CODEC)
 
         ClientPlayConnectionEvents.JOIN.register { _, sender, _ ->
             sender.sendPacket(ModInstalledPacket(VERSION))

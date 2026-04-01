@@ -3,7 +3,7 @@ package cz.lukynka.throwabletoasts.mixins;
 import cz.lukynka.throwabletoasts.client.ThrowableToastsClient;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.toasts.NowPlayingToast;
 import net.minecraft.client.gui.components.toasts.Toast;
 import net.minecraft.client.gui.components.toasts.ToastManager;
@@ -66,8 +66,8 @@ public class ToastInstanceMixin<T extends Toast> {
     private float accumulatedTimeMillisRender = 0f;
     private float accumulatedTimeMillisUpdate = 0f;
 
-    @Inject(at = @At("HEAD"), method = "render", cancellable = true)
-    public void render(GuiGraphics guiGraphics, int i, CallbackInfo ci) {
+    @Inject(at = @At("HEAD"), method = "extractRenderState", cancellable = true)
+    public void render(GuiGraphicsExtractor guiGraphics, int i, CallbackInfo ci) {
 
         accumulatedTimeMillisRender += deltaTracker.getRealtimeDeltaTicks() * 100;
         if (accumulatedTimeMillisRender >= targetFrameDurationMillis) {
@@ -96,7 +96,7 @@ public class ToastInstanceMixin<T extends Toast> {
             }
             animationX = renderPositionX;
             animationY = renderPositionY;
-            this.toast.render(guiGraphics, Minecraft.getInstance().font, this.fullyVisibleFor);
+            this.toast.extractRenderState(guiGraphics, Minecraft.getInstance().font, this.fullyVisibleFor);
             guiGraphics.pose().popMatrix();
 
             ci.cancel();
