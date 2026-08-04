@@ -74,7 +74,7 @@ class ThrowableToastsClient : ClientModInitializer {
 
         CURSOR_LOCATION = Vector2d(mouseX, mouseY)
 
-        val toastManager = client.toastManager as ToastManagerAccessor
+        val toastManager = client.gui.toastManager() as ToastManagerAccessor
         toastManager.visibleToasts.forEachIndexed { index, toast ->
 
             val width = toast.toast.width()
