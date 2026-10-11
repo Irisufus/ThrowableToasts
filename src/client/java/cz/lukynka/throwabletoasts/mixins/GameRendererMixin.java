@@ -11,8 +11,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(GameRenderer.class)
 public class GameRendererMixin {
 
-    @Inject(at = @At("HEAD"), method = "render")
-    public void render(DeltaTracker deltaTracker, boolean bl, CallbackInfo ci) {
+    @Inject(at = @At("HEAD"), method = "extract")
+    public void extract(DeltaTracker deltaTracker, boolean advanceGameTime, CallbackInfo ci) {
         ThrowableToastsClient.onFrameRender(deltaTracker);
     }
 

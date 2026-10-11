@@ -12,7 +12,7 @@ class ModInstalledPacket(val version: String) : CustomPacketPayload {
         val RESOURCE_LOCATION = Identifier.fromNamespaceAndPath("throwable_toasts", "mod_installed")
         val TYPE = CustomPacketPayload.Type<ModInstalledPacket>(RESOURCE_LOCATION)
 
-        var STREAM_CODEC: StreamCodec<ByteBuf, ModInstalledPacket> = StreamCodec.composite<ByteBuf, ModInstalledPacket, String>(
+        var STREAM_CODEC: StreamCodec<ByteBuf, ModInstalledPacket> = StreamCodec.composite(
             ByteBufCodecs.STRING_UTF8, ModInstalledPacket::version, ::ModInstalledPacket
         )
 
